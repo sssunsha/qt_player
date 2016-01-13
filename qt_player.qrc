@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>image/play.png</file>
+        <file>image/pause.png</file>
+        <file>image/duck.png</file>
+        <file>image/lion.png</file>
+        <file>image/panda.png</file>
+        <file>image/star-icon.png</file>
+        <file>image/played.png</file>
+        <file>image/mute.png</file>
+        <file>image/unmute.png</file>
+        <file>image/fullscreen.png</file>
+        <file>image/fullscreen_pressed.png</file>
+    </qresource>
+</RCC>
