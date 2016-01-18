@@ -62,6 +62,11 @@ QtQuick2ApplicationViewer::~QtQuick2ApplicationViewer()
     delete d;
 }
 
+QtQuick2ApplicationViewer* QtQuick2ApplicationViewer::getView()
+{
+    return this;
+}
+
 void QtQuick2ApplicationViewer::setMainQmlFile(const QString &file)
 {
     d->mainQmlFile = QtQuick2ApplicationViewerPrivate::adjustPath(file);

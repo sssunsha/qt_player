@@ -23,6 +23,7 @@ var control_player_margin = size_count/8;
 var control_player_source = "qrc:///image/play.png";
 var control_palyer_source_pressed = "qrc:///image/played.png";
 var control_player_source_released = control_player_source;
+var control_player_source_paused = "qrc:///image/pause.png"
 
 
 // control progress

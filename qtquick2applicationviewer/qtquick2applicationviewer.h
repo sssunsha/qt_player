@@ -25,6 +25,7 @@ public:
     void addImportPath(const QString &path);
 
     void showExpanded();
+    QtQuick2ApplicationViewer* getView();
 
 private:
     class QtQuick2ApplicationViewerPrivate *d;

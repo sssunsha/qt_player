@@ -7,7 +7,8 @@ DEPLOYMENTFOLDERS = folder_01
 QML_IMPORT_PATH =
 
 # The .cpp file which was generated for your project. Feel free to hack it.
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    helpcpp.cpp
 
 # Installation path
 # target.path =
@@ -22,3 +23,7 @@ RESOURCES += \
 OTHER_FILES += \
     image/pause.png \
     image/play.png
+
+HEADERS += \
+    helpcpp.h \
+    root.h

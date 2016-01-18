@@ -1,13 +1,27 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.1
 import QtQuick.Controls.Styles 1.1
+import HelpCpp 1.0
 
 import "util.js" as Util
+import "help.js" as Help
 
 Rectangle {
     id : root
     width: Util.player_root_width
     height: Util.player_root_height
+
+    // stop : 0 loaded : 1 playing : 2 paused : 3
+    property int play_state: 0
+    // unmute : false mute: false
+    property bool mute_state: false
+    // mark for full screen state
+    property bool is_fullscreen: false
+
+    // HelpCpp
+    HelpCpp {
+        id : help_cpp
+    }
 
     Rectangle {
         id : screen
@@ -15,6 +29,19 @@ Rectangle {
         anchors.right: root.right
         anchors.top: root.top
         anchors.bottom: control.top
+
+        PlayContainer {
+            id : play_container
+            anchors.fill: screen
+        }
+
+        MouseArea {
+            id : screen_mouseare
+            anchors.fill: screen
+            onClicked: Help.handle_screen_click()
+            onDoubleClicked: Help.handle_screen_double_click()
+        }
+
     }
 
     Rectangle {
@@ -35,13 +62,8 @@ Rectangle {
             anchors.rightMargin: Util.control_player_margin
             anchors.topMargin: Util.control_player_margin
             anchors.bottomMargin: Util.control_player_margin
-            source: Util.control_player_source
-            onPressed : {
-                control_player.source = Util.control_palyer_source_pressed
-            }
-            onReleased: {
-                control_player.source = Util.control_player_source_released
-            }
+            source: (play_state == 2) ? Util.control_player_source_paused : Util.control_player_source
+
         }
 
         Rectangle {
@@ -101,18 +123,9 @@ Rectangle {
             anchors.rightMargin: Util.control_mute_margin
             anchors.topMargin: Util.control_mute_margin
             anchors.bottomMargin: Util.control_mute_margin
-            source: Util.control_unmute_source
-            onClicked: {
-                console.log(control_mute.source)
-                if(control_mute.source == Util.control_unmute_source)
-                {
-                    control_mute.source = Util.control_mute_source
-                }
-                else
-                {
-                    control_mute.source = Util.control_unmute_source
-                }
-            }
+            source: (mute_state == false) ? Util.control_unmute_source :
+                                            Util.control_mute_source
+            onClicked : Help.handle_control_mute_button_clicked();
         }
 
         Rectangle {
@@ -126,7 +139,7 @@ Rectangle {
             anchors.topMargin: Util.control_volum_margin
             anchors.rightMargin: Util.control_volum_margin
             anchors.bottomMargin: Util.control_volum_margin
-             z: 1
+            z: 1
 
             Slider {
                 id : control_progressbar_volum
@@ -164,6 +177,7 @@ Rectangle {
             }
             onReleased: {
                 control_fullscreen.source = Util.control_fullscreen_source
+                Help.handle_control_fullscreen_button_released();
             }
 
         }

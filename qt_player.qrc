@@ -11,5 +11,7 @@
         <file>image/unmute.png</file>
         <file>image/fullscreen.png</file>
         <file>image/fullscreen_pressed.png</file>
+        <file>image/screem.png</file>
+        <file>video/test.mp4</file>
     </qresource>
 </RCC>

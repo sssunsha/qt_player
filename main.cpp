@@ -1,43 +1,57 @@
 #include <QtGui/QGuiApplication>
 #include <QQmlEngine>
 #include <QQmlComponent>
+#include <QtQuick>
 #include "qtquick2applicationviewer.h"
+#include "helpcpp.h"
+#include "root.h"
+QtQuick2ApplicationViewer* m_view;
+
+void handle_full_screen(bool isFullScreen)
+{
+    if(m_view)
+    {
+        if(isFullScreen)
+        {
+            m_view->showFullScreen();
+        }
+        else
+        {
+            m_view->showExpanded();
+        }
+    }
+}
+
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
+    QtQuick2ApplicationViewer viewer;
+    m_view = &viewer;
+    qmlRegisterType<HelpCpp>("HelpCpp", 1, 0, "HelpCpp");
+//    HelpCpp helpcpp;
+//    helpcpp.setView(viewer.getView());
+//    HelpCpp::setView(viewer.getView());
+    viewer.setMainQmlFile(QStringLiteral("qml/qt_player/player.qml"));
+    viewer.showExpanded();
 
-//    QtQuick2ApplicationViewer viewer;
 
-QtQuick2ApplicationViewer *v = new QtQuick2ApplicationViewer();
-//    viewer.setMainQmlFile(QStringLiteral("qml/qt_player/main.qml"));
-//      viewer.setMainQmlFile(QStringLiteral("qml/qt_player/test.qml"));
-//      viewer.setMainQmlFile(QStringLiteral("qml/qt_player/animation.qml"));
-//    viewer.setMainQmlFile(QStringLiteral("qml/qt_player/draw.qml"));
-//    viewer.setMainQmlFile(QStringLiteral("qml/qt_player/Particle.qml"));
-//      viewer.setMainQmlFile(QStringLiteral("qml/qt_player/loader.qml"));
-//    viewer.setMainQmlFile(QStringLiteral("qml/qt_player/player.qml"));
-    v->setMainQmlFile(QStringLiteral("qml/qt_player/player.qml"));
-    v->showExpanded();
 
-//    viewer.showExpanded();
-//    viewer.showFullScreen();
 
-//    QQmlEngine engine;
-//    QQmlComponent component(&engine, "qml/qt_player/MyItem.qml");
-//    QObject *object = component.create();
+    //    viewer.showFullScreen();
 
-//    QVariant returnedValue;
-//    QVariant msg = "Hello from C++";
-//    QMetaObject::invokeMethod(object, "myQmlFunction",
-//        Q_RETURN_ARG(QVariant, returnedValue),
-//        Q_ARG(QVariant, msg));
+    //    QQmlEngine engine;
+    //    QQmlComponent component(&engine, "qml/qt_player/MyItem.qml");
+    //    QObject *object = component.create();
 
-//    qDebug() << "QML function returned:" << returnedValue.toString();
-//    delete object;
+    //    QVariant returnedValue;
+    //    QVariant msg = "Hello from C++";
+    //    QMetaObject::invokeMethod(object, "myQmlFunction",
+    //        Q_RETURN_ARG(QVariant, returnedValue),
+    //        Q_ARG(QVariant, msg));
 
-    app.exec();
-    delete v;
-    v = NULL;
-    return 0;
+    //    qDebug() << "QML function returned:" << returnedValue.toString();
+    //    delete object;
+
+    return app.exec();
 }
